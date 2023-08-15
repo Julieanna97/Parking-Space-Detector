@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#define NUM_PARKING_SPACES 10
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -96,6 +97,25 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
+    int parkingSpaces[NUM_PARKING_SPACES];
+
+    initializeParkingSpaces(parkingSpaces, NUM_PARKING_SPACES);
+
+    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
+    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
+    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
+    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
+    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
+    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
+    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
+    
+    displayParkingStatus(parkingSpaces, NUM_PARKING_SPACES);
+
+    removeVehicle(parkingSpaces, 0);
+
+    displayParkingStatus(parkingSpaces, NUM_PARKING_SPACES);
+
   }
 
   // Assuming parking space is available

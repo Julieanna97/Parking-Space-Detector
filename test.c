@@ -1,28 +1,6 @@
-#include "main.h"
+#include <stdio.h>
 
 #define NUM_PARKING_SPACES 10
-
-// Function to switch LEDs (Green/Red) according to vacancy status
-void controlParkingSpaceLEDs(bool available)
-{
-  while (1)
-  {
-    if (available)
-    {
-      // Turn on LD2 ON pin (Green LED) and turn off LD2 OFF pin (Red LED)
-      HAL_GPIO_WritePin(LD2_ON_GPIO_Port, LD2_ON_Pin, GPIO_PIN_SET);
-      HAL_GPIO_WritePin(LD2_OFF_GPIO_Port, LD2_OFF_Pin, GPIO_PIN_RESET);
-    }
-    else
-    {
-      HAL_GPIO_WritePin(LD2_ON_GPIO_Port, LD2_ON_Pin, GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(LD2_OFF_GPIO_Port, LD2_OFF_Pin, GPIO_PIN_SET);
-    
-    }
-
-  }
-
-}
 
 // Function to initialize parking spaces as empty
 void initializeParkingSpaces(int parkingSpaces[], int numSpaces)
@@ -63,11 +41,35 @@ void removeVehicle(int parkingSpaces[], int spaceIndex)
 // Function to display the status of parking spaces
 void displayParkingStatus(int parkingSpaces[], int numSpaces)
 {
-    printf("Welcome!\n Parking Status:\n");
+    printf("Welcome!\nParking Status:\n");
     for (int i = 0; i < numSpaces; i++)
     {
         printf("Space %d: %s\n", i + 1, parkingSpaces[i] == 0 ? "Empty" : "Occupied");
     }
 
+
+}
+
+int main()
+{
+    int parkingSpaces[NUM_PARKING_SPACES];
+
+    initializeParkingSpaces(parkingSpaces, NUM_PARKING_SPACES);
+
+    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
+    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
+    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
+    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
+    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
+    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
+    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
+    
+    displayParkingStatus(parkingSpaces, NUM_PARKING_SPACES);
+
+    removeVehicle(parkingSpaces, 0);
+
+    displayParkingStatus(parkingSpaces, NUM_PARKING_SPACES);
+
+    return 0;
 
 }
