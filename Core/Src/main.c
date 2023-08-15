@@ -97,6 +97,13 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
   }
+
+  // Assuming parking space is available
+  bool isParkingSpaceAvailable = true;
+
+  // Call the function to control LEDs
+  controlParkingSpaceLEDs(isParkingSpaceAvailable);
+
   /* USER CODE END 3 */
 }
 
