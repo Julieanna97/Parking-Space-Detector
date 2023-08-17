@@ -1,7 +1,7 @@
 #include "main.h"
 
 #define NUM_PARKING_SPACES 10
-RCC->AHB1ENR |= 0x0000007D;
+#define GPIO_PORT   GPIOA
 
 // Function to switch LEDs (Green/Red) according to vacancy status
 void controlParkingSpaceLEDs(bool available)
@@ -85,12 +85,21 @@ void delay_us(uint32_t microseconds)
 
 void initUltrasonicSensor(void)
 {
-    RCC->
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN; // Enable GPIOA clock
+    __HAL_RCC_GPIOA_CLK_ENABLE();
 
     GPIO_InitTypeDef GPIO_InitStruct;
-
+    
+    // Initialize trigger signal
     GPIO_InitStruct.Pin = TRIG_PIN_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(GPIO_PORT, &GPIO_InitStruct);
 
+    // Iitialize echo signal
+    GPIO_InitStruct.Pin = ECHO_PIN_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(GPIO_PORT, &GPIO_InitStruct);
 
 }
