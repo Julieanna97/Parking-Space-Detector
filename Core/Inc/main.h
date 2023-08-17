@@ -30,7 +30,6 @@ extern "C" {
 #include "stm32f4xx_hal.h"
 #include <stdbool.h>
 
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -69,6 +68,10 @@ void Error_Handler(void);
 #define LD2_ON_GPIO_Port GPIOA
 #define LD2_OFF_Pin GPIO_PIN_6
 #define LD2_OFF_GPIO_Port GPIOA
+#define SensorOutput_Pin GPIO_PIN_9
+#define SensorOutput_GPIO_Port GPIOA
+#define SensorInput_Pin GPIO_PIN_10
+#define SensorInput_GPIO_Port GPIOA
 #define TMS_Pin GPIO_PIN_13
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14

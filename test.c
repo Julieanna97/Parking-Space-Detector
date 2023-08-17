@@ -59,10 +59,7 @@ int main()
     parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
     parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
     parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
-    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
-    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
-    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
-    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
+
     
     displayParkingStatus(parkingSpaces, NUM_PARKING_SPACES);
 
