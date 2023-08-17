@@ -9,5 +9,9 @@ void initializeParkingSpaces(int parkingSpaces[], int numSpaces);
 int parkVehicle(int parkingSpaces[], int numSpaces);
 void removeVehicle(int parkingSpaces[], int spaceIndex);
 void displayParkingStatus(int parkingSpaces[], int numSpaces);
+void delay_us(uint32_t microseconds);
+void initUltrasonicSensor(void);
+float measureDistance(void);
+
 
 #endif

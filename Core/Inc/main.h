@@ -28,7 +28,7 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
-#include <stdbool.h>
+#include <stdint.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -68,6 +68,10 @@ void Error_Handler(void);
 #define LD2_ON_GPIO_Port GPIOA
 #define LD2_OFF_Pin GPIO_PIN_6
 #define LD2_OFF_GPIO_Port GPIOA
+#define ECHO_PIN_Pin GPIO_PIN_9
+#define ECHO_PIN_GPIO_Port GPIOC
+#define TRIG_PIN_Pin GPIO_PIN_8
+#define TRIG_PIN_GPIO_Port GPIOA
 #define SensorOutput_Pin GPIO_PIN_9
 #define SensorOutput_GPIO_Port GPIOA
 #define SensorInput_Pin GPIO_PIN_10

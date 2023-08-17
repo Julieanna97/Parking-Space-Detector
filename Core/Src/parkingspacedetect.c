@@ -1,6 +1,7 @@
 #include "main.h"
 
 #define NUM_PARKING_SPACES 10
+RCC->AHB1ENR |= 0x0000007D;
 
 // Function to switch LEDs (Green/Red) according to vacancy status
 void controlParkingSpaceLEDs(bool available)
@@ -68,6 +69,28 @@ void displayParkingStatus(int parkingSpaces[], int numSpaces)
     {
         printf("Space %d: %s\n", i + 1, parkingSpaces[i] == 0 ? "Empty" : "Occupied");
     }
+
+
+}
+
+void delay_us(uint32_t microseconds)
+{
+    // Adjust the delay based on your system's clock frequency
+    for (uint32_t i = 0; i < (microseconds * 8); i++)
+    {
+        __NOP();
+    }
+
+}
+
+void initUltrasonicSensor(void)
+{
+    RCC->
+
+    GPIO_InitTypeDef GPIO_InitStruct;
+
+    GPIO_InitStruct.Pin = TRIG_PIN_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
 
 
 }

@@ -266,6 +266,8 @@ void SystemCoreClockUpdate(void)
 }
 
 #if defined (DATA_IN_ExtSRAM) && defined (DATA_IN_ExtSDRAM)
+
+
 #if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx)\
  || defined(STM32F469xx) || defined(STM32F479xx)
 /**
@@ -564,7 +566,7 @@ void SystemInit_ExtMemCtl(void)
   GPIOI->PUPDR   = 0x00000000;
 #endif /* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F469xx || STM32F479xx */
   
-/*-- FMC Configuration -------------------------------------------------------*/
+/* -- FMC Configuration -------------------------------------------------------*/
   /* Enable the FMC interface clock */
   RCC->AHB3ENR |= 0x00000001;
   /* Delay after an RCC peripheral clock enabling */
