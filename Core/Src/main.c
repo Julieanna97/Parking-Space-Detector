@@ -92,37 +92,76 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
+  // Initialize HAL
+  HAL_Init();
+
+  // Initialize ultrasonic sensor
+  initUltrasonicSensor();
+
+  // Initialize parking spaces
+  int parkingSpaces[NUM_PARKING_SPACES];
+  initParkingSpaces(parkingSpaces, NUM_PARKING_SPACES);
+
   while (1)
   {
-    /* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
+    // Measure the distance using the ultrasonic sensor
+    float distance = measureDistance();
 
-    int parkingSpaces[NUM_PARKING_SPACES];
+    // Determine parking space availability based on distance
+    bool isParkingSpaceAvail = distance > 50.0; // Example of 50 cm in distance
 
-    initializeParkingSpaces(parkingSpaces, NUM_PARKING_SPACES);
-
-    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
-    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
-    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
-    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
-    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
-    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
-    parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
-    
+    // Display parking status
     displayParkingStatus(parkingSpaces, NUM_PARKING_SPACES);
 
-    removeVehicle(parkingSpaces, 0);
+    // Park vehicles (Example of 7 vehicles for demonstration)
+    for (int i = 0; i < 7; i++)
+    {
 
+      int parkIndex = parkVehicle(parkingSpaces, NUM_PARKING_SPACES);
+      if (parkIndex != -1) // If parking index is not occupied
+      {
+        printf("Vehicle parked in space %d\n", parkIndex + 1);
+      }
+      else
+      {
+        printf("No available parking space\n");
+      }
+
+
+    }
+
+    // DIsplay parking status after parking
     displayParkingStatus(parkingSpaces, NUM_PARKING_SPACES);
+
+    // Remove a veihcle (from index 1 for example)
+    removeVehicle(parkingSpaces, 1);
+
+    // Display parking status after removing
+    displayParkingStatus(parkingSpaces, NUM_PARKING_SPACES);
+
+    // Print parking space status
+    if (isParkingSpaceAvail)
+    {
+      printf("Parking space available. Distance: %.2f cm\n", distance)
+    }
+    else
+    {
+      printf("Parking space is occupied. Distance: %.2f cm\n", distance);
+    }
+
+    // Control LEDs based on parking space availability
+    controlParkingSpaceLEDs(isParkingSpaceAvail);
+
+    // Add delay before next measurement
+    HAL_Delay(1000);  // Delay of 1 second
+
 
   }
 
-  // Assuming parking space is available
-  bool isParkingSpaceAvailable = true;
+  return 0;
 
-  // Call the function to control LEDs
-  controlParkingSpaceLEDs(isParkingSpaceAvailable);
 }
 
 /**

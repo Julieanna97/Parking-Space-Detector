@@ -28,7 +28,10 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
+#include "parkingspacedetector.h"
+#include "stm32f4xx_hal_conf.h"
 #include <stdint.h>
+#include <stdbool.h>
 #define __IO volatile
 
 /* Private includes ----------------------------------------------------------*/
@@ -59,6 +62,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define GPIOA       0x40020000U // Base address for GPIOA
+
 #define B1_Pin GPIO_PIN_13
 #define B1_GPIO_Port GPIOC
 #define USART_TX_Pin GPIO_PIN_2

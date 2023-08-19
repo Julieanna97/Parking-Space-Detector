@@ -11,13 +11,13 @@ void controlParkingSpaceLEDs(bool available)
     if (available)
     {
       // Turn on LD2 ON pin (Green LED) and turn off LD2 OFF pin (Red LED)
-      HAL_GPIO_WritePin(LD2_ON_GPIO_Port, LD2_ON_Pin, GPIO_PIN_SET);
-      HAL_GPIO_WritePin(LD2_OFF_GPIO_Port, LD2_OFF_Pin, GPIO_PIN_RESET);
+      HAL_GPIO_WritePin(GPIO_PORT, LD2_ON_Pin, GPIO_PIN_SET);
+      HAL_GPIO_WritePin(GPIO_PORT, LD2_OFF_Pin, GPIO_PIN_RESET);
     }
     else
     {
-      HAL_GPIO_WritePin(LD2_ON_GPIO_Port, LD2_ON_Pin, GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(LD2_OFF_GPIO_Port, LD2_OFF_Pin, GPIO_PIN_SET);
+      HAL_GPIO_WritePin(GPIO_PORT, LD2_ON_Pin, GPIO_PIN_RESET);
+      HAL_GPIO_WritePin(GPIO_PORT, LD2_OFF_Pin, GPIO_PIN_SET);
     
     }
 
@@ -26,7 +26,7 @@ void controlParkingSpaceLEDs(bool available)
 }
 
 // Function to initialize parking spaces as empty
-void initializeParkingSpaces(int parkingSpaces[], int numSpaces)
+void initParkingSpaces(int parkingSpaces[], int numSpaces)
 {
     for (int i = 0; i < numSpaces; i++)
     {
@@ -73,20 +73,11 @@ void displayParkingStatus(int parkingSpaces[], int numSpaces)
 
 }
 
-void delay_us(uint32_t microseconds)
-{
-    // Adjust the delay based on your system's clock frequency
-    for (uint32_t i = 0; i < (microseconds * 8); i++)
-    {
-        __NOP();
-    }
 
-}
-
+// Initialize ultrasonic sensor and its' properties
 void initUltrasonicSensor(void)
 {
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN; // Enable GPIOA clock
-    __HAL_RCC_GPIOA_CLK_ENABLE();
 
     GPIO_InitTypeDef GPIO_InitStruct;
     
@@ -103,3 +94,27 @@ void initUltrasonicSensor(void)
     HAL_GPIO_Init(GPIO_PORT, &GPIO_InitStruct);
 
 }
+
+float measureDistance(void)
+{
+    HAL_GPIO_WritePin(GPIO_PORT, TRIG_PIN_Pin, GPIO_PIN_RESET);
+    delay_us(2);
+    HAL_GPIO_WritePin(GPIO_PORT, TRIG_PIN_Pin, GPIO_PIN_SET);
+    delay_us(10);
+    HAL_GPIO_WritePin(GPIO_PORT, TRIG_PIN_Pin, GPIO_PIN_RESET);
+
+    while (HAL_GPIO_ReadPin(GPIO_PORT, ECHO_PIN_Pin) == GPIO_PIN_RESET);
+    uint32_t startTime = HAL_GetTick();
+
+    while (HAL_GPIO_ReadPin(GPIO_PORT, ECHO_PIN_Pin) == GPIO_PIN_SET);
+    uint32_t endTime = HAL_GetTick();
+
+    // Calculate distance based on the speed of sound (approx. 343 m/s at room temperature)
+    float distance = ((endTime - startTime) * 34300.0) / 2000000.0;
+
+
+    return distance;
+
+}
+
+
