@@ -132,10 +132,10 @@ int main(void)
 
     }
 
-    // DIsplay parking status after parking
+    // Display parking status after parking
     displayParkingStatus(parkingSpaces, NUM_PARKING_SPACES);
 
-    // Remove a veihcle (from index 1 for example)
+    // Remove a vehicle (from index 1 for example)
     removeVehicle(parkingSpaces, 1);
 
     // Display parking status after removing
